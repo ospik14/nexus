@@ -1,0 +1,30 @@
+[Unit]
+Description=Nexus read-only Docker API gate
+
+[Service]
+Type=simple
+User=nexus-docker-gate
+Group=nexus-docker-gate
+SupplementaryGroups=docker
+WorkingDirectory=/opt/nexus/current
+EnvironmentFile=-/etc/nexus/docker.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/usr/bin/python3 -m nexus.docker_gate
+NoNewPrivileges=true
+CapabilityBoundingSet=
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectProc=invisible
+RestrictAddressFamilies=AF_UNIX
+RestrictNamespaces=true
+RestrictSUIDSGID=true
+LockPersonality=true
+UMask=0077
+TasksMax=8
+MemoryMax=56M

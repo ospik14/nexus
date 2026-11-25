@@ -1,0 +1,4 @@
+# Copy to workspaces.toml, then uncomment only the absolute directories you authorize.
+# Use canonical paths to dedicated project directories. Symlinks are rejected.
+[workspaces]
+# projects = "/srv/nexus-workspaces/projects"

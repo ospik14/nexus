@@ -1,0 +1,43 @@
+[Unit]
+Description=Nexus VPS control panel
+After=network.target
+
+[Service]
+Type=simple
+User=nexus
+Group=nexus
+WorkingDirectory=/opt/nexus/current
+Environment=PYTHONDONTWRITEBYTECODE=1
+UMask=0077
+StateDirectory=nexus
+StateDirectoryMode=0700
+ExecStartPre=/opt/nexus/current/.venv/bin/python -m alembic upgrade head
+ExecStart=/opt/nexus/current/.venv/bin/python -m nexus
+Restart=on-failure
+RestartSec=4
+TimeoutStopSec=20
+NoNewPrivileges=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateDevices=true
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectClock=true
+ProtectHostname=true
+RestrictNamespaces=true
+RestrictSUIDSGID=true
+RestrictRealtime=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+InaccessiblePaths=-/run/docker.sock -/run/containerd/containerd.sock -/run/nexus-docker-gate
+TasksMax=64
+MemoryHigh=220M
+MemoryMax=320M
+
+[Install]
+WantedBy=multi-user.target

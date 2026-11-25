@@ -1,0 +1,12 @@
+[Unit]
+Description=Private Docker metrics API for Nexus
+
+[Socket]
+ListenStream=/run/nexus-docker-gate/engine.sock
+SocketUser=nexus-docker
+SocketGroup=nexus
+SocketMode=0600
+DirectoryMode=0750
+# The root-owned directory must be traversable by the collector.
+ExecStartPre=/usr/bin/install -d -m 0750 -o root -g nexus /run/nexus-docker-gate
+RemoveOnStop=true
